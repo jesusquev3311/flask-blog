@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request
-from models import db, User
+from models.db import db
+from models.User import User
+from models.Post import Post
 from config import config
 from utils.password import secure_password
 

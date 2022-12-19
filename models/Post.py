@@ -71,4 +71,9 @@ class Post(db.Model):
 
 class Post_category(db.Model):
     __tablename__ = "post_category"
-    id = db.Column(db.BigInt, primary_key = True)
+    post_id = db.Column(db.BigInt, primary_key = False)
+    category_id = db.Column(db.BigInt, primary_key = False)
+
+class Post_comment(db.Model):
+    __tablename__ = "post_comment"
+    id= db.Column(db.BigInt, primary_key = True)
