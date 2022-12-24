@@ -75,14 +75,15 @@ class Post(db.Model):
 
 class Post_category(db.Model):
     __tablename__ = "post_category"
-    post_id = db.Column(db.BigInt, primary_key=False)
-    category_id = db.Column(db.BigInt, primary_key=False)
+    id = db.Column(db.BigInteger, primary_key=True)
+    post_id = db.Column(db.BigInteger, primary_key=False)
+    category_id = db.Column(db.BigInteger, primary_key=False)
 
 
 class Post_comment(db.Model):
     __tablename__ = "post_comment"
-    id = db.Column(db.BigInt, primary_key=True)
-    post_id = db.Column(db.BigInt, primary_key=False)
+    id = db.Column(db.BigInteger, primary_key=True)
+    post_id = db.Column(db.BigInteger, primary_key=False)
     author = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     content = db.Column(db.Text, nullable=False)
@@ -96,13 +97,14 @@ class Post_comment(db.Model):
 
 class Post_tag(db.Model):
     __tablename__ = "post_tag"
-    post_id = db.Column(db.BigInt, primary_key=False)
-    tag_id = db.Column(db.BigInt, primary_key=False)
+    id = db.Column(db.BigInteger, primary_key=True)
+    post_id = db.Column(db.BigInteger, primary_key=False)
+    tag_id = db.Column(db.BigInteger, primary_key=False)
 
 
 class Post_meta(db.Model):
     __tablename__ = "post_meta"
-    id = db.column(db.BigInt, primary_key=True)
-    post_id = db.column(db.BigInt, primary_key=True)
-    key = db.column(db.String(255), nullable=False)
-    content = db.column(db.Text)
+    id = db.Column(db.BigInteger, primary_key=True)
+    post_id = db.Column(db.BigInteger, primary_key=True)
+    key = db.Column(db.String(255), nullable=False)
+    content = db.Column(db.Text)
