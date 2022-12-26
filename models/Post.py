@@ -5,7 +5,6 @@ db = SQLAlchemy()
 
 class Post(db.Model):
     __tablename__ = "posts"
-
     id = db.Column(db.BigInteger, primary_key=True)
     user_id = db.Column(db.BigInteger, primary_key=False)
     title = db.Column(db.String(255), nullable=False)
