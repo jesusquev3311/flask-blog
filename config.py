@@ -4,7 +4,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql:///users'
+    SQLALCHEMY_DATABASE_URI = 'postgresql:///blog'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

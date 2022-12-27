@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request,  render_template
 from models.db import db
 from models.User import User
 from models.Post import Post
@@ -24,6 +24,11 @@ def create_app(environment) -> None:
 
 environment = config["development"]
 app = create_app(environment)
+
+
+@app.route("/", methods=["GET"])
+def home():
+    return render_template('index.html')
 
 
 @app.route("/api/v1/users", methods=["GET"])
