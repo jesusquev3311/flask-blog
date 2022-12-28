@@ -1,3 +1,4 @@
+from datetime import timedelta
 from flask import Flask, jsonify, request
 from flask_jwt import JWT, jwt_required, current_identity
 from utils.security import authenticate, identity
@@ -13,6 +14,7 @@ def create_app(environment) -> None:
     app = Flask(__name__)
     app.secret_key = "zuztech" #just for development purpose
     app.config.from_object(environment)
+    app.config["JWT_EXPIRATION_DELTA"] = timedelta(seconds=1800)
     jwt = JWT(app, authenticate, identity)
 
     with app.app_context():
@@ -45,6 +47,7 @@ def get_users():
 
 
 @app.route("/api/v1/users/<id>", methods=["GET"])
+@jwt_required()
 def get_user(id):
     user = User.query.filter_by(id=id).first()
     if user is None:
@@ -54,6 +57,7 @@ def get_user(id):
 
 
 @app.route("/api/v1/users", methods=["POST"])
+@jwt_required()
 def create_user():
     json = request.get_json(force=True)
 
@@ -70,6 +74,7 @@ def create_user():
 
 
 @app.route("/api/v1/users/<id>", methods=["PUT"])
+@jwt_required()
 def update_user(id):
     user = User.query.filter_by(id=id).first()
 
@@ -87,6 +92,7 @@ def update_user(id):
 
 
 @app.route("/api/v1/users/<id>", methods=["DELETE"])
+@jwt_required()
 def delete_user(id):
     user = User.query.filter_by(id=id).first()
     if user is None:
@@ -98,6 +104,7 @@ def delete_user(id):
 
 
 @app.route("/api/v1/posts", methods=["GET"])
+@jwt_required()
 def get_posts():
     posts = [post.json() for post in Post.query.all()]
 
@@ -105,6 +112,7 @@ def get_posts():
 
 
 @app.route("/api/v1/posts", methods=["POST"])
+@jwt_required()
 def create_post():
     json = request.get_json(force=True)
 
