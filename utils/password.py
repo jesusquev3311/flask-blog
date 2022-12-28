@@ -5,3 +5,8 @@ def secure_password(password) -> None:
     hashed_password = hasher.hash(password)
 
     return hashed_password
+
+def check_password(password, hash_key):
+    result = bcrypt.verify(password, hash_key)
+
+    return result 

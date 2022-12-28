@@ -1,14 +1,19 @@
-from flask import Flask, jsonify, request,  render_template
+from flask import Flask, jsonify, request
+from flask_jwt import JWT, jwt_required, current_identity
+from utils.security import authenticate, identity
 from models.db import db
 from models.User import User
 from models.Post import Post
 from config import config
 from utils.password import secure_password
+from utils.security import authenticate, identity
 
 
 def create_app(environment) -> None:
     app = Flask(__name__)
+    app.secret_key = "zuztech" #just for development purpose
     app.config.from_object(environment)
+    jwt = JWT(app, authenticate, identity)
 
     with app.app_context():
         print(" ** starting app...")
@@ -28,10 +33,11 @@ app = create_app(environment)
 
 @app.route("/", methods=["GET"])
 def home():
-    return render_template('index.html')
+    return jsonify({"message": "Bad Request"}), 400
 
 
 @app.route("/api/v1/users", methods=["GET"])
+@jwt_required()
 def get_users():
     users = [user.json() for user in User.query.all()]
 
